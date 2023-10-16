@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './OrderForm.css'; // Import the CSS file
+import './OrderForm.css'; 
 
 const OrderForm = () => {
   const [formData, setFormData] = useState({
@@ -12,44 +12,57 @@ const OrderForm = () => {
 
   const [orderList, setOrderList] = useState([]);
 
-  // Function to handle form submission
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add logic to handle the form submission (e.g., send data to server)
-    console.log('Form submitted:', formData.customer_id,formData.delivery_address,formData.route_id);
-    // Reset form data
+    console.log('Form submitted:', formData.customer_id,formData.delivery_address,formData.route_id,orderList);
     setFormData({ customer_id: '', delivery_address: '',route_id: '',quantity:0,itemName: '' });
+    setOrderList([])
   };
 
-  // Function to handle form field changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // List of available products
+  const handleDelete = (index) => {
+    const updatedOrderList = [...orderList];
+    updatedOrderList.splice(index, 1);
+    setOrderList(updatedOrderList);
+};
+
+const handleOrder = (product) => {
+  const existingItemIndex = orderList.findIndex((item) => item.itemName === product.name);
+
+  if (existingItemIndex !== -1) {
+    const updatedOrderList = [...orderList];
+    updatedOrderList[existingItemIndex].quantity = formData.quantity;
+    setOrderList(updatedOrderList);
+  } else {
+    setOrderList((prevOrderList) => [
+      ...prevOrderList,
+      { itemName: product.name, quantity: formData.quantity },
+    ]);
+  }
+};
+
+
   const availableProducts = [
     { id: 1, name: 'Product A', details: 'Description of Product A' },
     { id: 2, name: 'Product B', details: 'Description of Product B' },
+    { id: 3, name: 'Product C', details: 'Description of Product C' },
+    { id: 4, name: 'Product D', details: 'Description of Product D' },
     // Add more products as needed
   ];
-
+      
   return (
     <div>
       <h2 className='navbar'>Order details</h2>  
        
       <main className='form-details'>
-        <form onSubmit={handleSubmit}>
-        <p className="order-list-title">Order List</p>
-        {orderList.length > 0 ? (
-            <ul className="order-list">
-                {orderList.map((order, index) => (
-                <li key={index}>{`${order.itemName} - Quantity: ${order.quantity}`}</li>
-                ))}
-            </ul>
-        ) : (
-            <p>No items added yet</p>
-        )}
+    <form onSubmit={handleSubmit}>
 
         <label className='item-detail'>
             Customer ID:
@@ -82,11 +95,29 @@ const OrderForm = () => {
         </label>
         <br/>
             <button type="submit" className='submit-button'>Place Order</button>
-        </form>       
+        </form>  
+
+        <p className="order-list-title">Order List</p>
+        
+        {orderList.length > 0 ? (
+            <ul className="order-list">
+                {orderList.map((order, index) => (
+                    <li key={index}>
+                        {`${order.itemName} - Quantity: ${order.quantity}`}
+                        <button onClick={() => handleDelete(index)}>Remove</button>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>No items added yet</p>
+        )}        
+
     </main> 
 
 
+
       <h3>Available Products</h3>
+      <div className='grid-container'>
       {availableProducts.map((product) => (
         <div key={product.id} className='product-content'>
           <h4>{product.name}</h4>
@@ -99,16 +130,16 @@ const OrderForm = () => {
               onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
             />
           <button className='add-button'
-            onClick={() => {
-              setOrderList([...orderList, {...orderList, quantity:formData.quantity, itemName: product.name }]);
-            
-            }}
+            onClick={() =>
+              handleOrder(product)
+            }
           >
-            Add to Order
+            Add Item
           </button>
           </label>
         </div>
       ))}
+      </div>
 
     </div>
   );
