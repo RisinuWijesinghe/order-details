@@ -2,7 +2,7 @@
 
 /* General styling */
 body {
-  background: url("https://4kwallpapers.com/images/wallpapers/macos-big-sur-apple-layers-fluidic-colorful-dark-wwdc-2020-3840x2160-1432.jpg");
+  background: url("https://4kwallpapers.com/images/wallpapers/macos-big-sur-apple-layers-fluidic-colorful-dark-wwdc-2020-3840x2160-1432.jpg"); 
   background-size: cover;
   background-attachment: fixed;
   overflow: auto;
@@ -19,8 +19,8 @@ body {
   /* Navbar styling */
   .navbar {
     color: white;
-    padding: 15px;
-    text-align: center;
+    padding: 15px; 
+    text-align: center; 
     margin: 0;
     width:100%;
   }
@@ -40,21 +40,39 @@ body {
       margin-bottom: 50px;
     }
     label.item-detail{
-      margin-bottom: 20px;
+      margin-top: 100px;
+      margin-bottom: 100px;
     }
     button.submit-button{
-      background-color: #444444;
+      margin-top: 10px;
+      background-color: #0a0a0a;
       border: none;
       border-radius: 5px;
       width: 200px;
       padding:7px;
       font-size:  16px;
-      color: rgb(20, 19, 19);
+      color: rgb(243, 235, 235);
       justify-content: center;
       align-items: center;
     }
   
-  
+ 
+.delete-button {
+  background-color: #0f0e0e; 
+  color: rgb(238, 5, 5);
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+  font-size: 10px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+
+}
+.delete-button:hover {
+  background-color: rgb(0, 0, 0); /* Darker red on hover, you can change it */
+}
+
 
 
   /* Available Products styling */
@@ -84,11 +102,13 @@ body {
     }
 
     p {
+      margin-top: 10px;
       margin:5px;
       font-size: 18px;
     }
 
     button.add-button {
+      margin-top: 10px;
       background-color: #ed6755;
       border: none;
       border-radius: 5px;

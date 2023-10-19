@@ -52,7 +52,7 @@ const handleOrder = (product) => {
   const availableProducts = [
     { id: 1, name: 'Product A', details: 'Description of Product A' },
     { id: 2, name: 'Product B', details: 'Description of Product B' },
-    { id: 3, name: 'Product C', details: 'Description of Product C' },
+    { id: 3, name: 'product C', details: 'Description of Product C' },
     { id: 4, name: 'Product D', details: 'Description of Product D' },
     // Add more products as needed
   ];
@@ -104,7 +104,7 @@ const handleOrder = (product) => {
                 {orderList.map((order, index) => (
                     <li key={index}>
                         {`${order.itemName} - Quantity: ${order.quantity}`}
-                        <button onClick={() => handleDelete(index)}>Remove</button>
+                        <button  className="delete-button" onClick={() => handleDelete(index)}>Remove</button>
                     </li>
                 ))}
             </ul>
